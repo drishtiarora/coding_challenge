@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from './user-service.service';
-// import * from 'jquery';
-import 'DataTables.net';
 
 
 @Component({
@@ -16,18 +14,18 @@ export class UsersComponent implements OnInit {
   address: any;
   check = true;
   tableWidget: any;
+  isDesc: boolean = false;
+  column: string = 'name';
+  records: any;
   constructor(private _userService : UserServiceService) { }
 
   ngOnInit() {
     this._userService.getUsers()
     .subscribe((data)=>{
       this.users = data;
-      //  this.company = data.company.toUpperCase();
-      // console.log(this.company);
-       console.log('data is' , this.users);
     })
   }
- 
+
   formatAddress(address){
     let street, zipcode, suite, city;
     let formatted_address = '';
@@ -56,13 +54,19 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  sortNames() {
-    $(document).ready(function() {
-      let exampleId: any = $('#user-table');
-      this.tableWidget = exampleId.DataTable({
-        order: [],
-        columnDefs: [ { orderable: false, targets: [1, 2, 3, 4] } ]
-      });
-  } );
-  }
+  sort(property){
+    this.isDesc = !this.isDesc;    
+    this.column = property;
+    let direction = this.isDesc ? 1 : -1;
+    this.users.sort(function(a, b){
+      let last_name_a = a[property].split(' ').pop();
+      let last_name_b = b[property].split(' ').pop();
+        if(last_name_a < last_name_b)
+          return -1 * direction;
+        else if( last_name_a > last_name_b)
+          return 1 * direction;
+        else
+          return 0;
+    });
+  };
 }

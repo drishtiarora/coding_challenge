@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
 <div class="panel panel-primary">
- <div class="panel-heading">
-    Comcast Project
- </div>
-
- <div class="panel-body">
-
-  <table id="user-table" class="table table-bordered table-hover">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th> Phone Number </th>
-      <th> Email </th>
-      <th> Company Name</th>
-      <th> Address </th>
-    </tr>
-  </thead>
-  <tbody>
-
-    <ng-container *ngFor = "let user of users">
-      <tr *ngIf="checkUser(user)">
-        <td> {{ user.name }}</td>
-        <td>{{ user.phone }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.company.name | uppercase }}</td>
-        <td >{{ formatAddress(user.address) }}</td>
-      </tr>
-    </ng-container>
-  </tbody>
-
-  </table>
- </div>
+  <div class="panel-heading">Comcast Project</div>
+  <div class="panel-body">
+    <table id="user-table" class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th class="pointer" (click)="sort('name')" >Name 
+            <i class="fa" [ngClass]="{'fa-sort': column != 'name',
+                                      'fa-sort-asc': (column == 'name' && !isDesc), 
+                                      'fa-sort-desc': (column == 'name' && isDesc) }"
+                                      aria-hidden="true">
+            </i>
+          </th>
+          <th> Phone Number </th>
+          <th> Email </th>
+          <th> Company Name</th>
+          <th> Address </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor = "let user of users">
+          <tr *ngIf="checkUser(user)">
+            <td> {{ user.name }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.company.name | uppercase }}</td>
+            <td >{{ formatAddress(user.address) }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
 </div>
 <footer>Made with <span style="color: #e25555;">&#9829;</span> By <a href="https://www.linkedin.com/in/adrishti94/" target="_blank">Drishti Arora</a></footer>
 </html>
