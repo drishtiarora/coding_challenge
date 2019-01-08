@@ -6,6 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserServiceService } from './users/user-service.service';
+import * as $ from 'jquery';
 
 
 @NgModule({
